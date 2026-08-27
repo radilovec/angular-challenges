@@ -1,4 +1,4 @@
-# Optimize Change Detection
+# Optimize Change Detection ✅
 
 > author: thomas-laforge
 

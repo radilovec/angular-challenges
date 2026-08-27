@@ -1,4 +1,4 @@
-# Default vs OnPush
+# Default vs OnPush ✅
 
 > author: thomas-laforge
 
