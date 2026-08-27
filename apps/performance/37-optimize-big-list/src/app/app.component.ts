@@ -26,7 +26,7 @@ import { PersonListComponent } from './person-list.component';
       <app-person-list class="w-3/4 max-w-2xl" [persons]="persons()" />
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'flex items-center flex-col gap-5',
   },

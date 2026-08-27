@@ -1,4 +1,4 @@
-# NgFor optimize big list
+# NgFor optimize big list ✅
 
 > author: thomas-laforge
 

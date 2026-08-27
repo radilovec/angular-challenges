@@ -1,4 +1,4 @@
-# NgFor Optimization
+# NgFor Optimization ✅
 
 > author: thomas-laforge
 
