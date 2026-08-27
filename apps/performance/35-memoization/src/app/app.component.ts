@@ -5,7 +5,7 @@ import { PersonListComponent } from './person-list.component';
 @Component({
   imports: [PersonListComponent],
   selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>Performance is key!!</p>
     <button
