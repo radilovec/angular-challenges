@@ -1,12 +1,19 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  linkedSignal,
+} from '@angular/core';
 
-import { CDFlashingDirective } from '@angular-challenges/shared/directives';
 import { TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { randFirstName } from '@ngneat/falso';
+import { AppInputComponent } from './app-input.component';
+import { AppListComponent } from './app-list.component';
 
 @Component({
   selector: 'app-person-list',
@@ -16,56 +23,40 @@ import { MatListModule } from '@angular/material/list';
     MatFormFieldModule,
     MatInputModule,
     MatChipsModule,
-    CDFlashingDirective,
     TitleCasePipe,
+    AppInputComponent,
+    AppListComponent,
   ],
   template: `
     <h1 class="text-center font-semibold" title="Title">
-      {{ title() | titlecase }}
+      {{ gender() | titlecase }}
     </h1>
 
-    <mat-form-field class="w-4/5" cd-flash>
-      <input
-        placeholder="Add one member to the list"
-        matInput
-        type="text"
-        [(ngModel)]="label"
-        (keydown)="handleKey($event)" />
-    </mat-form-field>
+    <app-input (add)="onAdd($event)" />
 
-    <mat-list class="flex w-full">
-      @if (names()?.length === 0) {
-        <div class="empty-list-label">Empty list</div>
-      }
-      @for (name of names(); track name) {
-        <mat-list-item cd-flash class="text-orange-500">
-          <div class="flex justify-between">
-            <h3 title="Name">
-              {{ name }}
-            </h3>
-          </div>
-        </mat-list-item>
-      }
-      @if (names()?.length !== 0) {
-        <mat-divider></mat-divider>
-      }
-    </mat-list>
+    <app-list [list]="list()" />
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   host: {
     class: 'w-full flex flex-col items-center',
   },
 })
 export class PersonListComponent {
-  names = input<string[]>([]);
-  title = input('');
+  gender = input.required<gender>();
 
-  label = '';
+  list = linkedSignal(() => {
+    const gender = this.gender();
+    return resolveList(gender);
+  });
 
-  handleKey(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      this.names()?.unshift(this.label);
-      this.label = '';
-    }
+  onAdd(item: string): void {
+    this.list.update((prev) => [item, ...prev]);
   }
 }
+
+type gender = 'male' | 'female';
+
+const resolveList = (gender: gender, length = 10) => {
+  return randFirstName({ gender, length });
+};

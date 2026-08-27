@@ -6,7 +6,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   template: `
     <div cd-flash>I do nothing but I'm here</div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   imports: [CDFlashingDirective],
 })
 export class RandomComponent {}

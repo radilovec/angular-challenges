@@ -6,15 +6,16 @@ import { RandomComponent } from './random.component';
 @Component({
   imports: [PersonListComponent, RandomComponent],
   selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-random />
 
     <div class="flex">
-      <app-person-list [names]="girlList" title="Female" />
-      <app-person-list [names]="boyList" title="Male" />
+      <app-person-list gender="female" />
+      <app-person-list gender="male" />
     </div>
   `,
+  standalone: true,
 })
 export class AppComponent {
   girlList = randFirstName({ gender: 'female', length: 10 });

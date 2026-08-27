@@ -1,4 +1,4 @@
-# Projection
+# Projection ✅
 
 > author: thomas-laforge
 
