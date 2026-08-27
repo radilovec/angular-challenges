@@ -39,7 +39,7 @@ import { PersonListComponent } from './person-list.component';
       (delete)="personService.deletePerson($event)"
       (update)="personService.updatePerson($event)" />
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'flex items-center flex-col gap-5',
   },
@@ -54,8 +54,8 @@ export class AppComponent implements OnInit {
     this.personService.loadPersons();
   }
 
-  handleKey(event: any) {
-    if (event.keyCode === 13) {
+  handleKey(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
       this.personService.addPerson(this.label);
       this.label = '';
     }

@@ -27,13 +27,14 @@ import { Person } from './person.model';
       </div>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'w-full flex flex-col',
   },
 })
 export class PersonListComponent {
   persons = input<Person[]>();
+
   delete = output<string>();
   update = output<string>();
 }
