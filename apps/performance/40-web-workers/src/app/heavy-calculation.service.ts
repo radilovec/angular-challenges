@@ -1,30 +1,26 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable()
 export class HeavyCalculationService {
-  private finalLength = 664579;
-  private loadingLength = signal(0);
+  private worker: Worker | undefined = undefined;
 
-  loadingPercentage = computed(
-    () => (this.loadingLength() * 100) / this.finalLength,
-  );
+  constructor() {
+    if (typeof Worker !== 'undefined') {
+      this.worker = new Worker(
+        new URL('./heavy-calculation.worker', import.meta.url),
+      );
 
-  startLoading() {
-    this.randomHeavyCalculationFunction();
+      this.worker.onmessage = ({ data }) => {
+        this.loadingPercentage.set(data.toFixed(2));
+      };
+    } else {
+      console.error(`Web Workers are not supported in this environment.`);
+    }
   }
 
-  private randomHeavyCalculationFunction() {
-    for (let num = 2; num <= 10000000; num++) {
-      let randomFlag = true;
-      for (let i = 2; i <= Math.sqrt(num); i++) {
-        if (num % i === 0) {
-          randomFlag = false;
-          break;
-        }
-      }
-      if (randomFlag) {
-        this.loadingLength.update((l) => l + 1);
-      }
-    }
+  loadingPercentage = signal(0);
+
+  startLoading() {
+    this.worker?.postMessage(10000000);
   }
 }

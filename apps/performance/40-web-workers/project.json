@@ -9,6 +9,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/performance/40-web-workers",
         "index": "apps/performance/40-web-workers/src/index.html",
@@ -20,7 +21,8 @@
           "apps/performance/40-web-workers/src/assets"
         ],
         "styles": ["apps/performance/40-web-workers/src/styles.css"],
-        "scripts": []
+        "scripts": [],
+        "webWorkerTsConfig": "apps/performance/40-web-workers/tsconfig.worker.json"
       },
       "configurations": {
         "production": {
@@ -44,11 +46,12 @@
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "performance-web-workers:build:production"
@@ -56,9 +59,7 @@
         "development": {
           "buildTarget": "performance-web-workers:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

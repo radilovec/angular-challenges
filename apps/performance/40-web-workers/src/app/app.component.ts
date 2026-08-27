@@ -15,7 +15,7 @@ import { UnknownPersonComponent } from './unknown-person/unknown-person.componen
     </button>
     <div class="p-1 text-white">Progress: {{ loadingPercentage() }}%</div>
   `,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: `flex flex-col h-screen w-screen bg-[#1f75c0]`,
   },

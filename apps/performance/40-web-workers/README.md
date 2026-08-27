@@ -1,4 +1,4 @@
-# Web workers
+# Web workers ✅
 
 > Author: Thomas Laforge
 
